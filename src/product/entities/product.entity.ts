@@ -22,6 +22,7 @@ color:string
 @Column()
 type:string
 
+
     @ManyToOne(() => UserEntity, (user) => user.product)
     
     user: UserEntity

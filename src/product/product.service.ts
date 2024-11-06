@@ -15,7 +15,27 @@ private productRepository:Repository<Product>
 
  async create(createProductDto: CreateProductDto) {
     const prod=this.productRepository.create(createProductDto);
-    return await this.productRepository.save(prod);
+    return await this.productRepository
+    .createQueryBuilder()
+    .insert()
+    .into(Product)
+    .values({
+      prod_name:createProductDto.prod_name,
+      base_price:createProductDto.base_price,
+      black_crewneck_price:createProductDto.black_crewneck_price,
+      white_crewneck_price:createProductDto.white_crewneck_price,
+      white_hoodie_price:createProductDto.white_hoodie_price,
+      black_hoodie_price:createProductDto.black_hoodie_price,
+      color:createProductDto.color,
+      type:createProductDto.type,
+      category:{
+        id :createProductDto.categoryId
+      },
+      user :{
+        id :createProductDto.userId
+      }
+    })
+    .execute();
   }
 
   findAll() {
@@ -30,9 +50,29 @@ private productRepository:Repository<Product>
   }
 
   async update(id: number, updateProductDto: UpdateProductDto) {
-    const prod= await this.productRepository.findOneBy({id});
-    Object.assign(prod,updateProductDto);
-    return await this.productRepository.save(prod);
+    /* const prod= await this.productRepository.findOneBy({id});
+    Object.assign(prod,updateProductDto); */
+    return await this.productRepository
+    .createQueryBuilder()
+    .update(Product)
+    .set({
+      prod_name:updateProductDto.prod_name,
+      base_price:updateProductDto.base_price,
+      black_crewneck_price:updateProductDto.black_crewneck_price,
+      white_crewneck_price:updateProductDto.white_crewneck_price,
+      white_hoodie_price:updateProductDto.white_hoodie_price,
+      black_hoodie_price:updateProductDto.black_hoodie_price,
+      color:updateProductDto.color,
+      type:updateProductDto.type,
+      category:{
+        id :updateProductDto.categoryId
+      },
+      user :{
+        id :updateProductDto.userId
+      }
+    })
+    .where("id=:id",{id:id})
+    .execute();
   }
 
   async remove(id: number) {

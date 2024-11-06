@@ -11,17 +11,17 @@ export class CreateProductDto {
         userId:number;
         @IsNotEmpty()
         categoryId:number;
+         @IsNotEmpty()
+        white_crewneck_price:number;
         @IsNotEmpty()
-        white_crewneck_price:number
+        white_hoodie_price:number;
         @IsNotEmpty()
-        white_hoodie_price:number
+        black_crewneck_price:number;
         @IsNotEmpty()
-        black_crewneck_price:number
+        black_hoodie_price:number;
+         @IsNotEmpty()
+        color:string ;
         @IsNotEmpty()
-        black_hoodie_price:number
-        @IsNotEmpty()
-        color:string
-        @IsNotEmpty()
-        type:string
-        
+        type:string;
+         
 }
